@@ -1,6 +1,21 @@
 body {
   margin: 0;
-  background-color: gray;
+  background-color: var(--dark-white);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  --black: #2c3531;
+  --light-black: #4a5855;
+  --purple: #6a0dad;
+  --light-purple: #a46bc7;
+  --white: #ffffff;
+  --dark-white: #d9d9d9;
+  --green: #116466;
+  --light-green: #376e6f;
+  --bright-blue: #3b5998;
+}
+h4 {
+  margin: 0;
+}
+p {
+  margin: 0;
 }

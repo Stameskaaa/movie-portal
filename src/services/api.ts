@@ -1,4 +1,4 @@
-import { SearchResponse, Query, MovieDetail } from './../types/apiTypes';
+import { SearchResponse, MovieDetail } from './../types/apiTypes';
 
 const key = process.env.REACT_APP_API_KEY;
 
@@ -17,14 +17,21 @@ const fetchInitialMovies = async () => {
 const fetchMovies = async ({
   type = '',
   search = '',
-}: { type?: string; search?: string } = {}): Promise<SearchResponse | MovieDetail> => {
+  arrayId,
+}: { type?: string; search?: string; arrayId?: string[] } = {}): Promise<
+  SearchResponse | MovieDetail
+> => {
   // type = s t i
 
-  let request = `http://www.omdbapi.com/?apikey=${key}`;
+  if (!search) {
+    throw new Error('Enter data'); //если это поиск по строке а не по массиву айдди
+  }
 
+  let request = `http://www.omdbapi.com/?apikey=${key}`;
   request += `&${type}=${search}`;
 
   const response = await fetch(request);
+
   if (!response.ok) {
     throw new Error(`${response.status}`);
   } // Обрабатываем ошибки не по причине HTTP
@@ -38,4 +45,23 @@ const fetchMovies = async ({
   return data; // Если ищем по айди или тайтлу получаем другой ответ более детальный с другим типом
 };
 
-export { fetchRandomMovie, fetchInitialMovies, fetchMovies };
+const fetchMoviesByArr = async (arrayId: string[] | undefined) => {
+  if (!arrayId) {
+    return [];
+  }
+  const response = await Promise.allSettled(
+    arrayId.map((id) => fetch(`http://www.omdbapi.com/?apikey=${key}&i=${id}`)),
+  );
+
+  const fulfilledReponses: PromiseFulfilledResult<Response>[] = response.filter(
+    (movie): movie is PromiseFulfilledResult<Response> => movie.status === 'fulfilled',
+  );
+
+  const data: MovieDetail[] = await Promise.all(
+    fulfilledReponses.map((movie) => movie.value.json()),
+  );
+
+  return data;
+};
+
+export { fetchRandomMovie, fetchInitialMovies, fetchMovies, fetchMoviesByArr };

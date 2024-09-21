@@ -1,0 +1,29 @@
+.container {
+  background-color: var(--black);
+  margin: 15px;
+  padding: 15px;
+  color: var(--dark-white);
+  display: flex;
+  flex-direction: row;
+  gap: 15px;
+  @media (max-width: 600px) {
+    flex-wrap: wrap;
+  }
+  img {
+    max-width: 300px;
+  }
+}
+.leftSide {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: center;
+  button {
+    margin-left: auto;
+  }
+}
+.rightSide {
+  display: flex;
+  gap: 10px;
+  flex-direction: column;
+}
