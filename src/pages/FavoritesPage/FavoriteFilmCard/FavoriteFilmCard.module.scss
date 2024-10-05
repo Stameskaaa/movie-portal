@@ -1,0 +1,23 @@
+.card_container {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.info_container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  max-width: 70%;
+}
+
+.info_container h4 {
+  color: var(--color-active-text);
+}
+
+.card_poster {
+  border-radius: 8px;
+  max-width: 30%;
+}

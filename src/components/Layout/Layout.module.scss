@@ -1,0 +1,16 @@
+.layout_container {
+  background-color: var(--color-background);
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.outlet_container {
+  padding: 20px 25px;
+  box-sizing: border-box;
+  max-width: 1600px;
+  width: 100%;
+  min-width: 400px;
+}

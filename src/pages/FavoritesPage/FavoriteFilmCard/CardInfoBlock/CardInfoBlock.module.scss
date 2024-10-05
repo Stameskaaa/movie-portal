@@ -1,0 +1,12 @@
+.info_container {
+  font-size: 18px;
+  padding: 10px;
+  border-radius: 8px;
+  border-bottom: 1px solid var(--color-black-red);
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: var(--color-muted-text);
+}

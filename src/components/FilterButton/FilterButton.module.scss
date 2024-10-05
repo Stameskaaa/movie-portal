@@ -1,0 +1,22 @@
+.button_container {
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+  font-size: 18px;
+  box-sizing: border-box;
+  color: var(--color-muted-text);
+  padding: 8px 8px 6px 8px;
+  border-radius: 4px;
+  transition: background-color 0.3s, border-color 0.2s;
+
+  border-bottom: 3px solid transparent;
+
+  &:hover,
+  &:focus {
+    background-color: rgba(255, 255, 255, 0.085);
+  }
+}
+
+.active {
+  border-bottom: 3px solid var(--color-black-red);
+}

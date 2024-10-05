@@ -1,0 +1,36 @@
+.block_container {
+  h5 {
+    margin-top: 30px;
+    margin-bottom: 10px;
+  }
+
+  ul {
+    margin-left: 5px;
+  }
+
+  li {
+    padding: 10px 0;
+    cursor: pointer;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 15px;
+
+    &:hover {
+      color: var(--color-active-text);
+    }
+  }
+}
+
+.icon {
+  font-size: 1.5rem;
+  display: inline-flex;
+  align-items: center;
+}
+
+.active {
+  color: var(--color-active-text);
+  .icon {
+    color: var(--color-black-red);
+  }
+}

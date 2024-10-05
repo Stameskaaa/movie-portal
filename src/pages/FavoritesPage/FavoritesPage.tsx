@@ -2,13 +2,15 @@ import { useEffect } from 'react';
 import { useAppSelector, useAsyncReq } from '../../hooks/hooks';
 import { UserState } from '../../types/apiTypes';
 import { fetchMoviesByArr } from '../../services/api';
+import styles from './FavoritesPage.module.scss';
+import { FavoriteFilmCard } from './FavoriteFilmCard/FavoriteFilmCard';
 
 export const FavoritesPage = () => {
   const { data, error, loading, executeAsyncReq } = useAsyncReq(fetchMoviesByArr);
   const user = useAppSelector((state) => state.auth.userData) as UserState;
 
   useEffect(() => {
-    if (user.favorites.length > 0) {
+    if (!!user?.favorites) {
       executeAsyncReq(user.favorites);
     }
   }, []);
@@ -20,19 +22,21 @@ export const FavoritesPage = () => {
     <div>{error.message}</div>;
   }
 
-  if (user.favorites.length <= 0) {
+  if (!!user?.favorites) {
     return <div>Empty</div>;
   }
 
   return (
-    <div>
+    <div className={styles.page_container}>
+      <h4>Favorite films</h4>
+      <hr />
       {data?.map((movie) => {
         return (
-          <div key={movie.imdbID}>
-            <h4>{movie.Title}</h4>
-            {movie.Poster !== 'N/A' ? <img src={movie.Poster} /> : <div>change kartinku</div>}
-            <p>{movie.Plot}</p>
-          </div>
+          <>
+            {' '}
+            <FavoriteFilmCard {...movie} />
+            <hr />
+          </>
         );
       })}
     </div>

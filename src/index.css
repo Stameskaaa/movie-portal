@@ -12,10 +12,75 @@ body {
   --green: #116466;
   --light-green: #376e6f;
   --bright-blue: #3b5998;
+
+  color: var(--color-muted-text);
 }
-h4 {
-  margin: 0;
+
+* {
+  font-family: 'Roboto', sans-serif;
 }
+
+input:focus {
+  outline: none;
+  box-shadow: none;
+}
+
+h5,
+h4,
+h3,
 p {
   margin: 0;
+  color: var(--color-header-text);
+}
+
+:root {
+  --color-red: #a00000;
+  --color-black-red: #800000;
+  --color-background: #191a1c; /* Темный фон */
+  --color-header: #131416; /* Цвет заголовка */
+  --color-section: #141517; /* Цвет секции */
+  --color-border: #121315; /* Цвет границ */
+  --color-shadow: rgba(0, 0, 0, 0.3); /* Цвет тени */
+  --color-button-bg: #151618; /* Цвет фона кнопки */
+  --color-button-hover: #161719; /* Цвет фона кнопки при наведении */
+
+  --color-text: #e0e0e0; /* Светлее фона - обычный текст, чтобы было видно */
+
+  --color-header-text: #c1c1c1; /* Более светлый для заголовков */
+  --color-active-text: #f5f5f5; /* Почти белый для активных элементов */
+  --color-secondary-bg: #191b1c; /* Вторичный фон */
+  --color-muted-text: #959fa3; /* Приглушенный текст */
+}
+ul,
+ol {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #888 #f1f1f1;
 }

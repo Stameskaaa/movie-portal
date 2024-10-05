@@ -1,0 +1,14 @@
+.home_container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-sizing: border-box;
+  width: 100%;
+}
+
+.home_container h1 {
+  color: var(--color-header-text);
+  font-size: 25px;
+  align-self: flex-start;
+  margin: 20px;
+}
