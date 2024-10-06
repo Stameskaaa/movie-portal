@@ -3,26 +3,33 @@ import { EmblaOptionsType } from 'embla-carousel';
 import Autoplay from 'embla-carousel-autoplay';
 import useEmblaCarousel from 'embla-carousel-react';
 import styles from './EmblaCarousel.module.scss';
+import { FilmData } from '../../types/apiTypes';
+import { MainCard } from '../MainCard/MainCard';
+import { SmallSliderCard } from '../SmallSliderCard/SmallSliderCard';
 
 type PropType = {
-  slides: ReactElement[];
+  slides: FilmData[];
   options?: EmblaOptionsType;
-  moreCards?: boolean;
+  multipleSlides?: boolean;
 };
 
 export const EmblaCarousel: React.FC<PropType> = (props) => {
-  const { slides, options, moreCards } = props;
+  const { slides, options, multipleSlides } = props;
   const [emblaRef, emblaApi] = useEmblaCarousel(options, [
-    Autoplay({ delay: moreCards ? 25000 : 3000 }),
+    Autoplay({ delay: multipleSlides ? 25000 : 3000 }),
   ]);
 
   return (
-    <section className={`${styles.embla} ${moreCards ? styles.adaptive : null} `}>
+    <section className={`${styles.embla} ${multipleSlides ? styles.adaptive : null} `}>
       <div className={styles.embla__viewport} ref={emblaRef}>
         <div className={styles.embla__container}>
-          {slides.map((element, index) => (
+          {slides.map((movie, index) => (
             <div className={styles.embla__slide} key={index}>
-              {element}
+              {multipleSlides ? (
+                <SmallSliderCard img={movie.posterUrl} />
+              ) : (
+                <MainCard img={movie.posterUrl} title={movie.nameRu} />
+              )}
             </div>
           ))}
         </div>

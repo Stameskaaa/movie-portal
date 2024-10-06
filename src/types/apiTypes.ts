@@ -60,3 +60,38 @@ export interface UserState {
   password: string;
   favorites: string[];
 }
+
+interface Country {
+  name: string;
+  id: number;
+}
+
+interface Genre {
+  genre: string;
+}
+
+export interface FilmData {
+  countries: Country[];
+  coverUrl: string | null;
+  description: string;
+  genres: Genre[];
+  imdbId: string;
+  kinopoiskId: number;
+  logoUrl: string | null;
+  nameEn: string | null;
+  nameOriginal: string;
+  nameRu: string;
+  posterUrl: string;
+  posterUrlPreview: string;
+  ratingAgeLimits: string;
+  ratingImdb: number | null;
+  ratingKinopoisk: number | null;
+  type: 'FILM' | 'SERIES';
+  year: number;
+}
+
+export interface MovieResponse {
+  total: number;
+  totalPages: number;
+  items: FilmData[];
+}

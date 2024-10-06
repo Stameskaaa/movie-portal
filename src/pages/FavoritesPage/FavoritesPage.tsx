@@ -4,6 +4,7 @@ import { UserState } from '../../types/apiTypes';
 import { fetchMoviesByArr } from '../../services/api';
 import styles from './FavoritesPage.module.scss';
 import { FavoriteFilmCard } from './FavoriteFilmCard/FavoriteFilmCard';
+import { MovieLoader } from '../../components/MovieLoader/MovieLoader';
 
 export const FavoritesPage = () => {
   const { data, error, loading, executeAsyncReq } = useAsyncReq(fetchMoviesByArr);
@@ -13,31 +14,24 @@ export const FavoritesPage = () => {
     if (!!user?.favorites) {
       executeAsyncReq(user.favorites);
     }
-  }, []);
+  }, [user]);
 
   if (loading) {
-    <div>Loading . . .</div>;
+    <MovieLoader />;
   }
   if (error) {
     <div>{error.message}</div>;
   }
 
-  if (!!user?.favorites) {
+  if (!!!user?.favorites) {
     return <div>Empty</div>;
   }
 
   return (
     <div className={styles.page_container}>
       <h4>Favorite films</h4>
-      <hr />
-      {data?.map((movie) => {
-        return (
-          <>
-            {' '}
-            <FavoriteFilmCard {...movie} />
-            <hr />
-          </>
-        );
+      {data?.map((movie, index) => {
+        return <FavoriteFilmCard key={index} {...movie} />;
       })}
     </div>
   );

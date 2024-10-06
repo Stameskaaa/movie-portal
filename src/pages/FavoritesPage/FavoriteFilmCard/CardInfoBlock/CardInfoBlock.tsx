@@ -8,7 +8,7 @@ interface Props {
 export const CardInfoBlock: React.FC<Props> = ({ title, text }) => {
   return (
     <div className={styles.info_container}>
-      <span>{title}</span>: <span>{text}</span>
+      <div>{title}</div>: <div style={{ marginLeft: 'auto' }}>{text}</div>
     </div>
   );
 };

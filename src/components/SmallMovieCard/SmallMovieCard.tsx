@@ -1,15 +1,19 @@
 import styles from './SmallMovieCard.module.scss';
 import { IoMdStar } from 'react-icons/io';
+import { FilmData } from '../../types/apiTypes';
 
-export const SmallMovieCard = () => {
+export const SmallMovieCard: React.FC<FilmData> = (props) => {
   return (
     <div className={styles.card_container}>
-      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTaHpxq8v6sVXAPCrcu_MVqsW9KcedenMLvdA&s" />
+      <img src={props.posterUrl} />
       <div className={styles.card_info}>
-        <h3>Avatar</h3>
-        <p>Adventure, Fantasy</p>
+        <h3>{props.nameRu ? props.nameRu : props.nameOriginal}</h3>
+        {!!props.genres.length && (
+          <p>{props.genres.reduce((acc, value) => acc + ` ${value.genre}`, '')}</p>
+        )}
         <div className={styles.card_rating}>
-          <IoMdStar size={20} color="#D6C75E" /> 5.0
+          <IoMdStar size={20} color="#D6C75E" />{' '}
+          {props.ratingKinopoisk ? (props.ratingKinopoisk / 2).toFixed(1) : `5.0`}
         </div>
       </div>
     </div>

@@ -1,8 +1,14 @@
 import styles from './SmallSliderCard.module.scss';
-export const SmallSliderCard = () => {
+
+interface Props {
+  img: string;
+  title?: string;
+}
+
+export const SmallSliderCard: React.FC<Props> = ({ img }) => {
   return (
     <div className={styles.card_container}>
-      <img src="https://kinopoiskapiunofficial.tech/images/posters/kp/302.jpg" />
+      <img src={img} />
     </div>
   );
 };

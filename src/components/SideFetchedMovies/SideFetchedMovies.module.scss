@@ -2,9 +2,9 @@
   display: flex;
   flex-direction: column;
   gap: 10px;
+}
 
-  h3 {
-    color: var(--color-active-text);
-    margin: 0 0 10px 10px;
-  }
+.title {
+  color: var(--color-active-text);
+  margin: 0 0 10px 10px;
 }
