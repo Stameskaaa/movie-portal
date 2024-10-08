@@ -14,22 +14,13 @@ export const authSlice = createSlice({
       state.authorized = action.payload.authorized;
       state.userData = action.payload.userData;
     },
-    setFavorites: (state, action: PayloadAction<string>) => {
-      if (state?.userData) {
-        const { favorites } = state.userData;
-        if (favorites.includes(action.payload)) {
-          state.userData.favorites = favorites.filter((item) => item !== action.payload);
-        } else {
-          state.userData.favorites.push(action.payload);
-        }
-      }
-    },
+
     logout: () => {
       return initialState;
     },
   },
 });
 
-export const { setUser, setFavorites, logout } = authSlice.actions;
+export const { setUser, logout } = authSlice.actions;
 
 export default authSlice.reducer;

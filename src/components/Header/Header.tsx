@@ -23,22 +23,22 @@ const menu = {
     {
       text: 'Home',
       icon: <TiHome />,
-      path: 'home',
+      url: { path: '/home', full: '/home' },
     },
     {
       text: 'Search',
       icon: <IoIosSearch />,
-      path: 'search',
+      url: { path: '/search', query: { genre: 'ALL' }, full: '/search?genre=ALL' },
     },
     {
       text: 'Favorites',
       icon: <MdFavorite />,
-      path: 'favorites',
+      url: { path: '/favorites', full: '/favorites' },
     },
     {
       text: 'Trending now',
       icon: <FaFire />,
-      path: 'Trendingnow',
+      url: { path: '/trendingnow', full: '/trendingnow' },
     },
   ],
 };
@@ -49,54 +49,54 @@ const popularGenre = {
     {
       text: 'Comedy',
       icon: <FaSmile />,
-      path: 'search/comedy',
+      url: { path: '/search', query: { genre: '13' }, full: '/search?genre=13' },
     },
     {
-      text: 'Cartoons',
+      text: 'Children',
       icon: <FaChildren />,
-      path: 'search/cartoons',
+      url: { path: '/search', query: { genre: '33' }, full: '/search?genre=33' },
     },
     {
       text: 'Fantasy',
       icon: <FaMagic />,
-      path: 'search/fantasy',
+      url: { path: '/search', query: { genre: '12' }, full: '/search?genre=12' },
     },
     {
       text: 'Biography',
       icon: <MdFace3 />,
-      path: 'search/biography',
-    },
-  ],
-};
-
-const general = {
-  title: 'GENERAL',
-  listItems: [
-    {
-      text: 'Profile',
-      icon: <RiSettings3Fill />,
-      path: 'Profile',
-    },
-    {
-      text: 'Logout',
-      icon: <FiLogOut />,
-      path: 'auth',
-    },
-    {
-      text: 'Admin Panel',
-      icon: <FaLock />,
-      path: 'AdminPanel',
+      url: { path: '/search', query: { genre: '8' }, full: '/search?genre=8' },
     },
   ],
 };
 
 export const Header = () => {
-  const { authorized, userData } = useAppSelector((state) => state.auth);
+  const { authorized } = useAppSelector((state) => state.auth);
   const dispatch = useAppDispatch();
 
   const handleLogout = () => {
     dispatch(logout());
     clearCurrentUser();
+  };
+
+  const general = {
+    title: 'GENERAL',
+    listItems: [
+      {
+        text: 'Profile',
+        icon: <RiSettings3Fill />,
+        url: { path: '/profile', full: '/profile' },
+      },
+      {
+        text: authorized ? 'Logout' : 'Login',
+        icon: <FiLogOut />,
+        url: { path: '/auth', full: '/auth' },
+      },
+      {
+        text: 'Admin Panel',
+        icon: <FaLock />,
+        url: { path: '/adminpanel', full: '/adminpanel' },
+      },
+    ],
   };
 
   return (

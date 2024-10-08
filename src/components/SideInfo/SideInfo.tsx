@@ -2,34 +2,53 @@ import { useState } from 'react';
 import { Input } from '../Input/Input';
 import { SideFetchedMovies } from '../SideFetchedMovies/SideFetchedMovies';
 import styles from './SideInfo.module.scss';
-import { useGetPopularMovieQuery } from '../../services/movieApi/movieApi';
+import { useGetMoreBaseInfoQuery, useGetPopularMovieQuery } from '../../services/movieApi/movieApi';
 import { SpinnerLoader } from '../SpinnerLoader/SpinnerLoader';
 import { useNavigate } from 'react-router-dom';
+import { useAppSelector } from '../../hooks/hooks';
 
 export const SideInfo = () => {
   const [value, setValue] = useState('');
-  const { data, error, isLoading } = useGetPopularMovieQuery(2);
+  const {
+    data: popular,
+    error: popularErr,
+    isLoading: popularLoading,
+  } = useGetPopularMovieQuery(2);
+  const { authorized, userData } = useAppSelector((state) => state.auth);
+  const favoritesArray = !!userData?.favorites.length ? [...userData?.favorites.slice(0, 3)] : [];
+  const {
+    data: favorites,
+    error: favoritesErr,
+    isLoading: favoritesLoading,
+  } = useGetMoreBaseInfoQuery({ ids: favoritesArray });
+
   const navigate = useNavigate();
+
+  if (popularErr && favoritesErr) {
+    <div>Error . . .</div>;
+  }
 
   return (
     <section className={styles.sideinfo_container}>
       <Input value={value} setValue={setValue} />
-      {isLoading ? (
+      {popularLoading && favoritesLoading ? (
         <SpinnerLoader />
       ) : (
         <>
           <SideFetchedMovies
-            onClick={() => navigate('/search/v2.2/films/collections?type=TOP_POPULAR_ALL&page=2')}
-            movieData={data}
+            onClick={() => navigate('/trendingnow?type=TOP_POPULAR_ALL&page=2')}
+            movieData={popular?.items}
             title="Popular Movies"
             buttText="All trending movies"
           />
-          <SideFetchedMovies
-            onClick={() => navigate('/favorites')}
-            movieData={data}
-            title="Favorites"
-            buttText="Show more favorites"
-          />
+          {authorized && (
+            <SideFetchedMovies
+              onClick={() => navigate('/favorites')}
+              movieData={favorites}
+              title="Favorites"
+              buttText="Show more favorites"
+            />
+          )}
         </>
       )}
     </section>

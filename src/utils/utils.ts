@@ -1,80 +1,82 @@
-import { UserState } from '../types/apiTypes';
+import { UserList, UserFavorite, CurrentUser } from '../types/apiTypes';
 
-export const getUserList = () => {
-  const userListString = localStorage.getItem('userList');
-  if (userListString) {
-    const userList: UserState[] = JSON.parse(userListString);
-    return userList;
-  } else {
-    return null;
-  }
-};
+// NEW NEW
 
-export const getCurrentUser = () => {
+export function loginUser(name: string, password: string) {
+  localStorage.setItem('currentUser', JSON.stringify({ name, password }));
+}
+
+export function getCurrentUser(): CurrentUser | null {
   const currentUser = localStorage.getItem('currentUser');
   return currentUser ? JSON.parse(currentUser) : null;
-};
-
-export const foundUser = (name: string) => {
-  const userList = getUserList();
-  if (userList) {
-    const foundUser = userList.find((user: UserState) => user.name === name);
-    return foundUser;
-  } else {
-    return null;
-  }
-};
+}
 
 export const clearCurrentUser = () => {
   localStorage.removeItem('currentUser');
 };
 
-export const setUserInLocalStorage = (user: UserState) => {
-  localStorage.setItem('currentUser', JSON.stringify(user.name));
-};
-
-export const regUserInStorage = (user: UserState) => {
-  localStorage.setItem('currentUser', JSON.stringify(user.name));
+export function foundUserInUserList(name: string) {
   const userList = getUserList();
   if (userList) {
-    localStorage.setItem('userList', JSON.stringify([...userList, user]));
-  } else {
-    localStorage.setItem('userList', JSON.stringify([user]));
+    const foundUser = userList.find((userObj: UserFavorite) => userObj.name === name);
+    return foundUser;
   }
-};
 
-const changeFavoriteList = (user: UserState, id: string, state: boolean) => {
-  const userList = getUserList();
-  if (state) {
-    user.favorites.push(id);
+  return null;
+}
+
+export function getUserList() {
+  const userListString = localStorage.getItem('userList');
+  if (userListString) {
+    const userList: UserList = JSON.parse(userListString);
+    return userList;
   } else {
-    user.favorites = user.favorites.filter((filterId) => id !== filterId);
+    return null;
   }
-  const changedUserList = userList?.map((mappedUser) =>
-    mappedUser.name === user.name ? user : mappedUser,
-  );
-  userList && localStorage.setItem('userList', JSON.stringify(changedUserList));
-};
+}
 
-export const addFavorite = (name: string, id: string) => {
-  const currentUser = foundUser(name);
+export function regInUserList(name: string, pass: string) {
+  const userAlreadyReg = foundUserInUserList(name); // на всякий еще раз проверка почему нет
 
-  if (currentUser) {
-    const containsId = hasId('', id, currentUser);
-    if (containsId) {
-      changeFavoriteList(currentUser, id, false);
-      return false;
+  if (!userAlreadyReg) {
+    const userList = getUserList();
+    const newUser = { name, favorites: [] };
+
+    if (userList) {
+      localStorage.setItem('userList', JSON.stringify([...userList, newUser]));
     } else {
-      changeFavoriteList(currentUser, id, true);
-      return true;
+      localStorage.setItem('userList', JSON.stringify([newUser]));
     }
+    loginUser(name, pass);
   }
-  // return false;
-};
+  return null;
+}
 
-export const hasId = (name: string, id: string, user?: UserState) => {
-  const found = user || foundUser(name);
-  return found ? user?.favorites.findIndex((valueIndex) => valueIndex === id) !== -1 : false;
-};
+export function hasInFavorite(name: string, id: string) {
+  const userData = foundUserInUserList(name);
+  if (userData) {
+    return userData.favorites.findIndex((innerId) => innerId === id) !== -1 ? false : true;
+  }
+  return false;
+}
 
-//checkFavorite
+export function changeFavoriteList(name: string, id: string, state: boolean) {
+  const userList = getUserList();
+  const userData = foundUserInUserList(name);
+
+  if (userList && !hasInFavorite(name, id) && userData) {
+    if (state) {
+      userData.favorites.push(id);
+    } else {
+      userData.favorites = userData.favorites.filter((filterId) => id !== filterId);
+    }
+    const changedUserList = userList?.map((mappedUser) =>
+      mappedUser.name === name ? userData : mappedUser,
+    );
+    localStorage.setItem('userList', JSON.stringify(changedUserList));
+  }
+}
+
+export const capitalizeFirstLetter = (str: string): string => {
+  return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
+};

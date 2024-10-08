@@ -1,10 +1,9 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { foundUser, regUserInStorage } from '../../utils/utils';
 import { useAppDispatch } from '../../hooks/hooks';
 import { setUser } from '../../features/authSlice/authSlice';
 import { UserState } from '../../types/apiTypes';
-
+import { foundUserInUserList, regInUserList } from '../../utils/utils';
 interface ValidateResult {
   success: boolean;
   message: string;
@@ -25,23 +24,15 @@ export const RegistationPage = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
-  const saveUser = (foundedUser: UserState) => {
-    dispatch(setUser({ authorized: true, userData: foundedUser }));
-    regUserInStorage(foundedUser);
-  };
-
   const registrateAccount = ({ login, password, secondPass }: RegistrateParams) => {
     const isValidLog = validateLogin(login);
     const isValidPass = validatePassword(password, secondPass);
 
     if (isValidLog.success && isValidPass.success) {
-      if (localStorage.getItem(credentials.login)) {
-        console.log('this account registrated');
-      } else {
-        saveUser({ name: login, password, favorites: [] });
-        console.log('Account succesfuly registrated');
-        navigate('/');
-      }
+      dispatch(setUser({ authorized: true, userData: { name: login, password, favorites: [] } }));
+      regInUserList(login, password);
+      console.log('Account succesfuly registrated');
+      navigate('/');
     } else {
       console.log(!isValidLog.success && isValidLog.message);
       console.log(!isValidPass.success && isValidPass.message);
@@ -51,7 +42,7 @@ export const RegistationPage = () => {
   const validateLogin = (log: string): ValidateResult => {
     log = log.replace(/\s+/g, '');
 
-    if (foundUser(log)) {
+    if (foundUserInUserList(log)) {
       return { success: false, message: 'Current account have been registrated' };
     }
 
@@ -113,7 +104,7 @@ export const RegistationPage = () => {
         </label>
         <button>registrate</button>
       </form>
-      <button onClick={() => navigate('/authorization')}>have account?</button>
+      <button onClick={() => navigate('/auth')}>have account?</button>
     </div>
   );
 };

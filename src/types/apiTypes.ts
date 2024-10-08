@@ -55,9 +55,20 @@ export interface AuthState {
   userData: UserState | null;
 }
 
+export interface CurrentUser {
+  name: string;
+  password: string;
+}
+
 export interface UserState {
   name: string;
   password: string;
+  favorites: string[];
+}
+export type UserList = UserFavorite[];
+
+export interface UserFavorite {
+  name: string;
   favorites: string[];
 }
 
@@ -94,4 +105,76 @@ export interface MovieResponse {
   total: number;
   totalPages: number;
   items: FilmData[];
+}
+
+export interface SearchString {
+  order?: string;
+  type?: string;
+  ratingFrom?: string;
+  ratingTo?: string;
+  yearTo?: string;
+  keyword?: string;
+  genre?: string;
+}
+
+export interface FilterDataItem {
+  id: string;
+  ru: string;
+  eng: string;
+}
+
+export type FilterDataList = FilterDataItem[];
+
+export type TypeKey = 'yearTo' | 'ratingTo' | 'ratingFrom' | 'type' | 'order' | 'genre';
+
+export interface FilmByID {
+  kinopoiskId: number;
+  kinopoiskHDId: string;
+  imdbId: string;
+  nameRu: string;
+  nameEn: string;
+  nameOriginal: string;
+  posterUrl: string;
+  posterUrlPreview: string;
+  coverUrl: string;
+  logoUrl: string;
+  reviewsCount: number;
+  ratingGoodReview: number;
+  ratingGoodReviewVoteCount: number;
+  ratingKinopoisk: number;
+  ratingKinopoiskVoteCount: number;
+  ratingImdb: number;
+  ratingImdbVoteCount: number;
+  ratingFilmCritics: number;
+  ratingFilmCriticsVoteCount: number;
+  ratingAwait: number;
+  ratingAwaitCount: number;
+  ratingRfCritics: number;
+  ratingRfCriticsVoteCount: number;
+  webUrl: string;
+  year: number;
+  filmLength: number;
+  slogan: string;
+  description: string;
+  shortDescription: string;
+  editorAnnotation: string;
+  isTicketsAvailable: boolean;
+  productionStatus: string;
+  type: string;
+  ratingMpaa: string;
+  ratingAgeLimits: string;
+  hasImax: boolean;
+  has3D: boolean;
+  lastSync: string;
+  countries: Array<{
+    country: string;
+  }>;
+  genres: Array<{
+    genre: string;
+  }>;
+  startYear: number;
+  endYear: number;
+  serial: boolean;
+  shortFilm: boolean;
+  completed: boolean;
 }

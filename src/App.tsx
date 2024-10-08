@@ -8,10 +8,12 @@ import { RegistationPage } from './pages/RegistrationPage/RegistrationPage';
 import { useEffect } from 'react';
 import { useAppDispatch } from './hooks/hooks';
 import { setUser } from './features/authSlice/authSlice';
-import { getCurrentUser, foundUser } from './utils/utils';
-import { withAuth } from './HOC/HOC';
+import { getCurrentUser, foundUserInUserList } from './utils/utils';
+import { withAuth } from './HOC/withAuth';
 import { HomePage } from './pages/HomePage/HomePage';
 import { SearchPage } from './pages/SearchPage/SearchPage';
+import { OpenMoviePage } from './pages/OpenMoviePage/OpenMoviePage';
+import { TrendingPage } from './pages/TrendingPage/TrendingPage';
 
 function App() {
   const dispatch = useAppDispatch();
@@ -20,9 +22,14 @@ function App() {
     const currentUser = getCurrentUser();
 
     if (currentUser) {
-      const foundedUser = foundUser(currentUser);
-
-      foundedUser && dispatch(setUser({ authorized: true, userData: foundedUser }));
+      const foundedUser = foundUserInUserList(currentUser.name);
+      foundedUser &&
+        dispatch(
+          setUser({
+            authorized: true,
+            userData: { ...foundedUser, password: currentUser.password },
+          }),
+        );
     } // Проверяем залогинне ли какой-то юзер и его данные устанавливаем в стор редакса
   }, []);
 
@@ -35,24 +42,16 @@ function App() {
           <Route index element={<HomePage />} />
           <Route path="home" element={<HomePage />} />
           <Route path="search" element={<SearchPage />} />
-          <Route path="favorites" element={<FavoritesPage />} />
-          <Route path="search/:genre" element={<SearchPage />} />
+          <Route path="favorites" element={<FavoritesPageWithAuth />} />
           <Route path="auth" element={<AuthPage />} />
           <Route path="registration" element={<RegistationPage />} />
+          <Route path="openmovie/:id" element={<OpenMoviePage />} />
+          <Route path="trendingnow" element={<TrendingPage />} />
           <Route path="*" element={<NotFoundPage />} />
         </Route>
       </Routes>
     </>
   );
 }
-
-// <Route path="/" element={<Layout />}>
-// <Route path="" element={<MainPage />} />
-// <Route path="/favorites" element={<FavoritesPageWithAuth />} />
-// <Route path="/moviedetails/:id" element={<MovieDetailsPage />} />
-// </Route>
-// <Route path="/authorization" element={<AuthPage />} />
-// <Route path="/registration" element={<RegistationPage />} />
-// <Route path="*" element={<NotFoundPage />} />
 
 export default App;

@@ -5,6 +5,7 @@ import { fetchMoviesByArr } from '../../services/api';
 import styles from './FavoritesPage.module.scss';
 import { FavoriteFilmCard } from './FavoriteFilmCard/FavoriteFilmCard';
 import { MovieLoader } from '../../components/MovieLoader/MovieLoader';
+import { ErrorComponent } from '../../components/ErrorComponent/ErrorComponent';
 
 export const FavoritesPage = () => {
   const { data, error, loading, executeAsyncReq } = useAsyncReq(fetchMoviesByArr);
@@ -20,11 +21,11 @@ export const FavoritesPage = () => {
     <MovieLoader />;
   }
   if (error) {
-    <div>{error.message}</div>;
+    <div>error . . .</div>;
   }
 
-  if (!!!user?.favorites) {
-    return <div>Empty</div>;
+  if (!!!user?.favorites || true) {
+    return <ErrorComponent text="Empty" />;
   }
 
   return (

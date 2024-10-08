@@ -5,7 +5,7 @@ export const withAuth = (Component: React.ComponentType) => {
   return (props: any) => {
     const { authorized } = useAppSelector((state) => state.auth);
     if (!authorized) {
-      return <Navigate to="/" replace />;
+      return <Navigate to="/home" replace />;
     }
     return <Component {...props} />;
   };

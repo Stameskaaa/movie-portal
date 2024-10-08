@@ -1,9 +1,9 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { foundUser, setUserInLocalStorage } from '../../utils/utils';
-import { useAppDispatch } from '../../hooks/hooks';
-import { UserState } from '../../types/apiTypes';
-import { setUser } from '../../features/authSlice/authSlice';
+import { useAppDispatch, useAppSelector } from '../../hooks/hooks';
+import styles from './AuthPage.module.scss';
+import { foundUserInUserList, loginUser, clearCurrentUser } from '../../utils/utils';
+import { setUser, logout } from '../../features/authSlice/authSlice';
 
 interface LoginParams {
   login: string;
@@ -17,21 +17,26 @@ export const AuthPage = () => {
   });
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
+  const { authorized, userData } = useAppSelector((state) => state.auth);
 
-  const saveUser = (foundedUser: UserState) => {
-    console.log('success login');
-    dispatch(setUser({ authorized: true, userData: foundedUser }));
-    setUserInLocalStorage(foundedUser);
-    navigate('/');
+  const authenticateUser = () => {
+    //TODO validate
+    const existUser = foundUserInUserList(credentials.login);
+    if (existUser) {
+      loginUser(credentials.login, credentials.password);
+      dispatch(
+        setUser({ authorized: true, userData: { ...existUser, password: credentials.password } }),
+      );
+      console.log('success login');
+      navigate('/');
+    } else {
+      console.log('error login');
+    }
   };
 
-  const isAuthenticated = () => {
-    if (credentials.login && credentials.password) {
-      const foundedUser = foundUser(credentials.login);
-      foundedUser?.password === credentials.password
-        ? saveUser(foundedUser)
-        : console.log('error login');
-    }
+  const unAuthenticated = () => {
+    clearCurrentUser();
+    dispatch(logout());
   };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -39,16 +44,24 @@ export const AuthPage = () => {
     setCredentials((prev) => ({ ...prev, [name]: value }));
   };
 
+  if (authorized) {
+    return (
+      <div>
+        Вы уже авторизованы, {userData?.name}{' '}
+        <button onClick={() => unAuthenticated()}>Logout</button>
+      </div>
+    );
+  }
+
   return (
-    <div>
+    <div className={styles.page_container}>
       Enter user data
       <form
         onSubmit={(e) => {
           e.preventDefault();
-          isAuthenticated();
+          authenticateUser();
         }}>
         <label>
-          {' '}
           Login
           <input onChange={handleInputChange} name="login" type="text" />
         </label>

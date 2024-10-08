@@ -7,6 +7,7 @@ import {
   useGetTopMovieQuery,
 } from '../../services/movieApi/movieApi';
 import { MovieLoader } from '../../components/MovieLoader/MovieLoader';
+import { ErrorComponent } from '../../components/ErrorComponent/ErrorComponent';
 
 const OPTIONS: EmblaOptionsType = {};
 const OPTIONS2: EmblaOptionsType = { dragFree: true };
@@ -30,14 +31,30 @@ export const HomePage = () => {
     return <MovieLoader />;
   }
 
+  if (!!!popular?.length && !!!top?.length && !!!persons?.length) {
+    return <ErrorComponent text="Error with loading movies. Please try again later." />;
+  }
+
   return (
     <section className={styles.home_container}>
       <h1>Watch now</h1>
-      <EmblaCarousel slides={popular.items} options={OPTIONS} />
+      {!!popular?.length ? (
+        <EmblaCarousel slides={popular.items} options={OPTIONS} />
+      ) : (
+        <ErrorComponent />
+      )}
       <h1>Top TV shows</h1>
-      <EmblaCarousel multipleSlides={true} slides={top.items} options={OPTIONS2} />
+      {!!top?.length ? (
+        <EmblaCarousel multipleSlides={true} slides={top.items} options={OPTIONS2} />
+      ) : (
+        <ErrorComponent />
+      )}
       <h1>Random actors</h1>
-      <EmblaCarousel multipleSlides={true} slides={persons.items} options={OPTIONS2} />
+      {!!persons?.length ? (
+        <EmblaCarousel multipleSlides={true} slides={persons.items} options={OPTIONS2} />
+      ) : (
+        <ErrorComponent />
+      )}
     </section>
   );
 };
