@@ -2,6 +2,7 @@
   "name": "movie-portal",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://stameskaaa.github.io/movie-portal/",
   "dependencies": {
     "@reduxjs/toolkit": "^2.2.7",
     "@testing-library/jest-dom": "^5.17.0",
@@ -23,7 +24,6 @@
     "typescript": "^4.9.5",
     "web-vitals": "^2.1.4"
   },
-  "homepage": "https://stameskaaa.github.io/movie-portal/",
   "scripts": {
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build",
