@@ -5,11 +5,12 @@ import { FavoritesPage } from './pages/FavoritesPage/FavoritesPage';
 import { AuthPage } from './pages/AuthPage/AuthPage';
 import { Layout } from './components/Layout/Layout';
 import { RegistationPage } from './pages/RegistrationPage/RegistrationPage';
-import { useEffect } from 'react';
-import { useAppDispatch } from './hooks/hooks';
+import { useLayoutEffect } from 'react';
+import { useAppDispatch, useAppSelector } from './hooks/typedReduxHooks/reduxHook';
+
 import { setUser } from './features/authSlice/authSlice';
 import { getCurrentUser, foundUserInUserList } from './utils/utils';
-import { withAuth } from './HOC/withAuth';
+import { withAuth } from './HOC/withAuth/withAuth';
 import { HomePage } from './pages/HomePage/HomePage';
 import { SearchPage } from './pages/SearchPage/SearchPage';
 import { OpenMoviePage } from './pages/OpenMoviePage/OpenMoviePage';
@@ -17,11 +18,12 @@ import { TrendingPage } from './pages/TrendingPage/TrendingPage';
 
 function App() {
   const dispatch = useAppDispatch();
+  const { authorized } = useAppSelector((state) => state.auth);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     const currentUser = getCurrentUser();
 
-    if (currentUser) {
+    if (currentUser && !authorized) {
       const foundedUser = foundUserInUserList(currentUser.name);
       foundedUser &&
         dispatch(

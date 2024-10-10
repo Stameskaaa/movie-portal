@@ -9,11 +9,12 @@ import { useSearchParams } from 'react-router-dom';
 import { SearchString } from '../../types/apiTypes';
 import { FiltersPanel } from './FiltersPanel/FiltersPanel';
 import { ErrorComponent } from '../../components/ErrorComponent/ErrorComponent';
+import { PaginationComponent } from '../../components/PaginationComponent/PaginationComponent';
 
 export const SearchPage = () => {
   const [value, setValue] = useState('');
   const timer = useRef<null | NodeJS.Timeout>(null);
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [searchParams] = useSearchParams();
   const [searchString, setSearchString] = useState<SearchString>(
     () => Object.fromEntries(searchParams.entries()) as SearchString,
   );
@@ -52,11 +53,15 @@ export const SearchPage = () => {
       {isLoading ? (
         <MovieLoader />
       ) : !!data?.items.length ? (
-        <div className={styles.grid_container}>
-          {data.items.map((movie: FilmData) => {
-            return <SearchCard key={movie.kinopoiskId} {...movie} />;
-          })}
-        </div>
+        <>
+          <div className={styles.grid_container}>
+            {data.items.map((movie: FilmData) => {
+              return <SearchCard key={movie.kinopoiskId} {...movie} />;
+            })}
+          </div>
+
+          <PaginationComponent totalPages={data.totalPages} />
+        </>
       ) : (
         <ErrorComponent text="Movies not found " />
       )}

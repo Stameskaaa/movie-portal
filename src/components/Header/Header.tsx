@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { useAppDispatch, useAppSelector } from '../../hooks/hooks';
+
 import { logout } from '../../features/authSlice/authSlice';
 import { clearCurrentUser } from '../../utils/utils';
 import styles from './Header.module.scss';
@@ -16,6 +16,7 @@ import { FaLock } from 'react-icons/fa';
 import { PiFilmReelFill } from 'react-icons/pi';
 import { IoIosSearch } from 'react-icons/io';
 import { MdFavorite } from 'react-icons/md';
+import { useAppDispatch, useAppSelector } from '../../hooks/typedReduxHooks/reduxHook';
 const menu = {
   title: 'MENU',
 

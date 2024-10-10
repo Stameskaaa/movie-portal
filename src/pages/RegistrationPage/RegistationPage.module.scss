@@ -10,26 +10,13 @@
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
 }
 
-.logout {
-  margin: 30px auto;
-  max-width: 200px;
+.container form {
   display: flex;
   flex-direction: column;
   gap: 30px;
-}
-
-.logout h4 {
-  font-size: 30px;
-  text-align: center;
 }
 
 .container h4 {
   font-size: 25px;
   margin-bottom: 20px;
-}
-
-.container form {
-  display: flex;
-  flex-direction: column;
-  gap: 30px;
 }

@@ -64,7 +64,7 @@ export function changeFavoriteList(name: string, id: string, state: boolean) {
   const userList = getUserList();
   const userData = foundUserInUserList(name);
 
-  if (userList && !hasInFavorite(name, id) && userData) {
+  if (userList && userData) {
     if (state) {
       userData.favorites.push(id);
     } else {
@@ -73,6 +73,7 @@ export function changeFavoriteList(name: string, id: string, state: boolean) {
     const changedUserList = userList?.map((mappedUser) =>
       mappedUser.name === name ? userData : mappedUser,
     );
+
     localStorage.setItem('userList', JSON.stringify(changedUserList));
   }
 }

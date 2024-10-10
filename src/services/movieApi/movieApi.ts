@@ -1,6 +1,6 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { FilmByID } from '../../types/apiTypes';
-const apikey = process.env.REACT_APP_API_KEY2;
+const apikey = process.env.REACT_APP_API_KEY3;
 
 export const movieApi = createApi({
   reducerPath: 'movieApi',
@@ -21,9 +21,10 @@ export const movieApi = createApi({
         ratingTo = '10',
         yearTo = '3000',
         keyword = '',
+        page = '1',
         genre,
       }) => {
-        let resultStr = `/v2.2/films?order=${order}&type=${type}&ratingFrom=${ratingFrom}&ratingTo=${ratingTo}&yearFrom=1000&yearTo=${yearTo}&keyword=${keyword}`;
+        let resultStr = `/v2.2/films?order=${order}&type=${type}&ratingFrom=${ratingFrom}&ratingTo=${ratingTo}&yearFrom=1000&yearTo=${yearTo}&keyword=${keyword}&page=${page}`;
         if (!!genre && genre !== 'ALL') resultStr += `&genres=${genre}`;
         return resultStr;
       },

@@ -1,0 +1,17 @@
+.hearth {
+  color: var(--color-muted-text);
+  cursor: pointer;
+  transition: transform 0.1s ease, color 0.3 ease;
+  &:hover {
+    opacity: 0.9;
+    transform: scale(1.05);
+  }
+}
+
+.hearth:active {
+  transform: scale(0.9);
+}
+
+.active {
+  color: var(--color-red);
+}

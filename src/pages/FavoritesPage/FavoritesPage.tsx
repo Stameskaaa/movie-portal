@@ -1,37 +1,40 @@
-import { useEffect } from 'react';
-import { useAppSelector, useAsyncReq } from '../../hooks/hooks';
-import { UserState } from '../../types/apiTypes';
-import { fetchMoviesByArr } from '../../services/api';
 import styles from './FavoritesPage.module.scss';
 import { FavoriteFilmCard } from './FavoriteFilmCard/FavoriteFilmCard';
 import { MovieLoader } from '../../components/MovieLoader/MovieLoader';
 import { ErrorComponent } from '../../components/ErrorComponent/ErrorComponent';
+import { useGetMoreBaseInfoQuery } from '../../services/movieApi/movieApi';
+import { useAppSelector } from '../../hooks/typedReduxHooks/reduxHook';
+import { useEffect } from 'react';
 
 export const FavoritesPage = () => {
-  const { data, error, loading, executeAsyncReq } = useAsyncReq(fetchMoviesByArr);
-  const user = useAppSelector((state) => state.auth.userData) as UserState;
+  const { userData } = useAppSelector((state) => state.auth);
+  const favoritesArray = !!userData?.favorites.length ? userData?.favorites : [];
+  const {
+    data: favorites,
+    error: favoritesErr,
+    isLoading: favoritesLoading,
+    refetch: favoritesRefetch,
+  } = useGetMoreBaseInfoQuery({ ids: favoritesArray });
 
   useEffect(() => {
-    if (!!user?.favorites) {
-      executeAsyncReq(user.favorites);
-    }
-  }, [user]);
+    favoritesRefetch();
+  }, [userData?.favorites]);
 
-  if (loading) {
+  if (favoritesLoading) {
     <MovieLoader />;
   }
-  if (error) {
+  if (favoritesErr) {
     <div>error . . .</div>;
   }
 
-  if (!!!user?.favorites || true) {
+  if (!!!favorites?.length) {
     return <ErrorComponent text="Empty" />;
   }
 
   return (
     <div className={styles.page_container}>
       <h4>Favorite films</h4>
-      {data?.map((movie, index) => {
+      {favorites?.map((movie, index) => {
         return <FavoriteFilmCard key={index} {...movie} />;
       })}
     </div>

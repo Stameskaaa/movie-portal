@@ -31,26 +31,28 @@ export const HomePage = () => {
     return <MovieLoader />;
   }
 
-  if (!!!popular?.length && !!!top?.length && !!!persons?.length) {
+  if (!!!popular?.items.length && !!!top?.items.length && !!!persons?.items.length) {
+    console.log(popular, top);
+
     return <ErrorComponent text="Error with loading movies. Please try again later." />;
   }
 
   return (
     <section className={styles.home_container}>
       <h1>Watch now</h1>
-      {!!popular?.length ? (
+      {!!popular?.items.length ? (
         <EmblaCarousel slides={popular.items} options={OPTIONS} />
       ) : (
         <ErrorComponent />
       )}
       <h1>Top TV shows</h1>
-      {!!top?.length ? (
+      {!!top?.items.length ? (
         <EmblaCarousel multipleSlides={true} slides={top.items} options={OPTIONS2} />
       ) : (
         <ErrorComponent />
       )}
       <h1>Random actors</h1>
-      {!!persons?.length ? (
+      {!!persons?.items.length ? (
         <EmblaCarousel multipleSlides={true} slides={persons.items} options={OPTIONS2} />
       ) : (
         <ErrorComponent />

@@ -1,9 +1,12 @@
+import styles from './AuthPage.module.scss';
+
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useAppDispatch, useAppSelector } from '../../hooks/hooks';
-import styles from './AuthPage.module.scss';
 import { foundUserInUserList, loginUser, clearCurrentUser } from '../../utils/utils';
 import { setUser, logout } from '../../features/authSlice/authSlice';
+import { Button } from '../../components/Button/Button';
+import { FloatingInput } from '../../components/FloatingInput/FloatingInput';
+import { useAppDispatch, useAppSelector } from '../../hooks/typedReduxHooks/reduxHook';
 
 interface LoginParams {
   login: string;
@@ -46,33 +49,40 @@ export const AuthPage = () => {
 
   if (authorized) {
     return (
-      <div>
-        Вы уже авторизованы, {userData?.name}{' '}
-        <button onClick={() => unAuthenticated()}>Logout</button>
+      <div className={styles.logout}>
+        <h4>You already authorized {userData?.name}</h4>
+        <Button onClick={() => unAuthenticated()} text="Logout" />
       </div>
     );
   }
 
   return (
-    <div className={styles.page_container}>
-      Enter user data
+    <div className={styles.container}>
+      <h4>Sign up</h4>
       <form
         onSubmit={(e) => {
           e.preventDefault();
           authenticateUser();
         }}>
-        <label>
-          Login
-          <input onChange={handleInputChange} name="login" type="text" />
-        </label>
+        <FloatingInput
+          type="text"
+          data={credentials.login}
+          setData={handleInputChange}
+          name="login"
+          text="Login"
+        />
 
-        <label>
-          password <input onChange={handleInputChange} name="password" type="password" />
-        </label>
+        <FloatingInput
+          type="password"
+          data={credentials.password}
+          setData={handleInputChange}
+          name="password"
+          text="password"
+        />
 
-        <button>auth</button>
+        <Button text="Sign up" />
       </form>
-      <button onClick={() => navigate('/registration')}>need registrate?</button>
+      <Button text="Create an Account" onClick={() => navigate('/registration')} />
     </div>
   );
 };

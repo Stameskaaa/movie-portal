@@ -5,6 +5,7 @@ import styles from './TrendingPage.module.scss';
 import { FilmData } from '../../types/apiTypes';
 import { ErrorComponent } from '../../components/ErrorComponent/ErrorComponent';
 import { MovieLoader } from '../../components/MovieLoader/MovieLoader';
+import { PaginationComponent } from '../../components/PaginationComponent/PaginationComponent';
 
 export const TrendingPage = () => {
   const [searchParams] = useSearchParams();
@@ -22,11 +23,14 @@ export const TrendingPage = () => {
       <h4 className={styles.title}>Trending films</h4>
 
       {!!filmList?.length ? (
-        <div className={styles.grid_container}>
-          {filmList.map((movie) => {
-            return <SearchCard key={movie.kinopoiskId} {...movie} />;
-          })}
-        </div>
+        <>
+          <div className={styles.grid_container}>
+            {filmList.map((movie) => {
+              return <SearchCard key={movie.kinopoiskId} {...movie} />;
+            })}
+          </div>
+          <PaginationComponent totalPages={data.totalPages} />
+        </>
       ) : (
         <ErrorComponent text="Movies not found" />
       )}

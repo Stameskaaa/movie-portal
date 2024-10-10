@@ -1,9 +1,12 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useAppDispatch } from '../../hooks/hooks';
 import { setUser } from '../../features/authSlice/authSlice';
-import { UserState } from '../../types/apiTypes';
 import { foundUserInUserList, regInUserList } from '../../utils/utils';
+import { FloatingInput } from '../../components/FloatingInput/FloatingInput';
+import { Button } from '../../components/Button/Button';
+import styles from './RegistationPage.module.scss';
+import { useAppDispatch } from '../../hooks/typedReduxHooks/reduxHook';
+
 interface ValidateResult {
   success: boolean;
   message: string;
@@ -83,28 +86,39 @@ export const RegistationPage = () => {
   };
 
   return (
-    <div>
-      registration form
+    <div className={styles.container}>
+      <h4>Registration</h4>
       <form
         onSubmit={(e) => {
           e.preventDefault();
           registrateAccount(credentials);
         }}>
-        <label>
-          {' '}
-          Login
-          <input onChange={handleInputChange} name="login" type="text" />
-        </label>
+        <FloatingInput
+          data={credentials.login}
+          text="Login"
+          type="text"
+          setData={handleInputChange}
+          name="login"
+        />
 
-        <label>
-          password <input onChange={handleInputChange} name="password" type="password" />
-        </label>
-        <label>
-          repeat password <input onChange={handleInputChange} name="secondPass" type="password" />
-        </label>
-        <button>registrate</button>
+        <FloatingInput
+          data={credentials.password}
+          text="password"
+          type="password"
+          setData={handleInputChange}
+          name="password"
+        />
+        <FloatingInput
+          data={credentials.secondPass}
+          text="repeat password"
+          type="password"
+          setData={handleInputChange}
+          name="secondPass"
+        />
+
+        <Button text="Registrate" />
       </form>
-      <button onClick={() => navigate('/auth')}>have account?</button>
+      <Button text="Have account?" onClick={() => navigate('/auth')} />
     </div>
   );
 };

@@ -1,11 +1,11 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Input } from '../Input/Input';
 import { SideFetchedMovies } from '../SideFetchedMovies/SideFetchedMovies';
 import styles from './SideInfo.module.scss';
 import { useGetMoreBaseInfoQuery, useGetPopularMovieQuery } from '../../services/movieApi/movieApi';
 import { SpinnerLoader } from '../SpinnerLoader/SpinnerLoader';
 import { useNavigate } from 'react-router-dom';
-import { useAppSelector } from '../../hooks/hooks';
+import { useAppSelector } from '../../hooks/typedReduxHooks/reduxHook';
 
 export const SideInfo = () => {
   const [value, setValue] = useState('');
@@ -15,14 +15,22 @@ export const SideInfo = () => {
     isLoading: popularLoading,
   } = useGetPopularMovieQuery(2);
   const { authorized, userData } = useAppSelector((state) => state.auth);
+
   const favoritesArray = !!userData?.favorites.length ? [...userData?.favorites.slice(0, 3)] : [];
+
   const {
     data: favorites,
     error: favoritesErr,
     isLoading: favoritesLoading,
+    refetch: refetchFavorites,
   } = useGetMoreBaseInfoQuery({ ids: favoritesArray });
-
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (authorized && userData?.favorites.length) {
+      refetchFavorites();
+    }
+  }, [userData?.favorites]);
 
   if (popularErr && favoritesErr) {
     <div>Error . . .</div>;

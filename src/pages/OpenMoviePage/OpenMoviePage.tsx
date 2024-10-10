@@ -1,20 +1,20 @@
-import { useNavigate, useParams } from 'react-router-dom';
-import { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useParams } from 'react-router-dom';
 import styles from './OpenMoviePage.module.scss';
 import { useGetBaseInfoQuery } from '../../services/movieApi/movieApi';
+import { MovieLoader } from '../../components/MovieLoader/MovieLoader';
+import { ErrorComponent } from '../../components/ErrorComponent/ErrorComponent';
+import { ButtonLike } from '../../components/ButtonLike/ButtonLike';
+import { useFavorite } from '../../hooks/useFavorite/useFavorite';
 
 export const OpenMoviePage = () => {
   const { id } = useParams();
   const { data, isLoading, error } = useGetBaseInfoQuery({ id });
-  const [hasIdState, setHasIdState] = useState<boolean>(false);
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
+  const { inFavorite, addInFavorite } = useFavorite(id);
 
   //СКРОЛ НАВЕРХ СДЕЛАТЬ пОПРОБОВАТЬ объекдинить несколько запросов в квери ртк
 
-  if (error) return <div>"error"</div>;
-  if (isLoading) return <div>Loading . . .</div>;
+  if (error) return <div>error</div>;
+  if (isLoading) return <MovieLoader />;
 
   return (
     <>
@@ -48,10 +48,12 @@ export const OpenMoviePage = () => {
               <h4>editorAnnotation</h4>
               {data.editorAnnotation}
             </>
+
+            <ButtonLike onClick={addInFavorite} active={inFavorite} />
           </div>
         </div>
       ) : (
-        <div>Film didnt founded!</div>
+        <ErrorComponent text="Film didnt found" />
       )}
     </>
   );
