@@ -2,7 +2,7 @@
   "name": "movie-portal",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https:/Stameskaaa.github.io/movie-portal",
+  "homepage": "https://Stameskaaa.github.io/movie-portal",
   "dependencies": {
     "@reduxjs/toolkit": "^2.2.7",
     "@testing-library/jest-dom": "^5.17.0",
