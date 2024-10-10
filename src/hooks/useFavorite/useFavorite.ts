@@ -31,7 +31,7 @@ export const useFavorite = (id: string | undefined) => {
         changeFavoriteList(userData.name, id, true);
       }
     } else {
-      navigate('/home');
+      navigate('/auth');
     }
   };
 

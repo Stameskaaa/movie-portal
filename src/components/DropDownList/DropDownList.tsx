@@ -8,9 +8,10 @@ interface Props {
   items: FilterDataList;
   defaultVal: FilterDataItem;
   type: TypeKey;
+  title: string;
 }
 
-export const DropDownList: React.FC<Props> = ({ items, type, defaultVal }) => {
+export const DropDownList: React.FC<Props> = ({ items, type, defaultVal, title }) => {
   const [searchParams, setSearchParams] = useSearchParams();
   const [currentFilter, setCurrentFilter] = useState<FilterDataItem>(defaultVal);
 
@@ -24,6 +25,7 @@ export const DropDownList: React.FC<Props> = ({ items, type, defaultVal }) => {
   return (
     <>
       <div className={styles.dropdown}>
+        <h4>{title}</h4>
         <div className={styles.title}>{capitalizeFirstLetter(currentFilter.eng)}</div>
         <div className={styles.dropdown_content}>
           {items.map((item, i) =>

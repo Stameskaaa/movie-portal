@@ -7,7 +7,7 @@ import { ErrorComponent } from '../../components/ErrorComponent/ErrorComponent';
 import { MovieLoader } from '../../components/MovieLoader/MovieLoader';
 import { PaginationComponent } from '../../components/PaginationComponent/PaginationComponent';
 
-export const TrendingPage = () => {
+const TrendingPage = () => {
   const [searchParams] = useSearchParams();
   const page = Number(searchParams.get('page')) || 1;
   const type = searchParams.get('type') || 'TOP_POPULAR_ALL';
@@ -37,3 +37,5 @@ export const TrendingPage = () => {
     </div>
   );
 };
+
+export default TrendingPage;

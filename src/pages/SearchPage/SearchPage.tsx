@@ -11,7 +11,7 @@ import { FiltersPanel } from './FiltersPanel/FiltersPanel';
 import { ErrorComponent } from '../../components/ErrorComponent/ErrorComponent';
 import { PaginationComponent } from '../../components/PaginationComponent/PaginationComponent';
 
-export const SearchPage = () => {
+const SearchPage = () => {
   const [value, setValue] = useState('');
   const timer = useRef<null | NodeJS.Timeout>(null);
   const [searchParams] = useSearchParams();
@@ -68,3 +68,5 @@ export const SearchPage = () => {
     </div>
   );
 };
+
+export default SearchPage;

@@ -13,21 +13,24 @@ export const FiltersPanel: React.FC<Props> = ({ data, setData }) => {
   return (
     <div className={styles.search_container}>
       <DropDownList
+        title={'Type'}
         defaultVal={{ eng: 'All', ru: 'Все', id: '999' }}
         type="type"
         items={typeList}
       />
-      <FilterButton text="Films" />
+      {/* <FilterButton text="Films" /> */}
 
-      <FilterButton text="Actors" />
+      {/* <FilterButton text="Actors" /> */}
       <DropDownList
+        title={'Sorting'}
         defaultVal={{ eng: 'Rating', ru: 'Рейтинг', id: '999' }}
         type="order"
         items={orderList}
       />
 
       <DropDownList
-        defaultVal={{ eng: 'All genre', ru: 'Все жанры', id: '999' }}
+        title={'Genre'}
+        defaultVal={{ eng: 'All', ru: 'Все жанры', id: '999' }}
         type="genre"
         items={genreList}
       />

@@ -32,8 +32,6 @@ export const HomePage = () => {
   }
 
   if (!!!popular?.items.length && !!!top?.items.length && !!!persons?.items.length) {
-    console.log(popular, top);
-
     return <ErrorComponent text="Error with loading movies. Please try again later." />;
   }
 

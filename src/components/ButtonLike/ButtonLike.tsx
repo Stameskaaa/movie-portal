@@ -7,9 +7,14 @@ interface Props {
 }
 
 export const ButtonLike: React.FC<Props> = ({ active, onClick }) => {
+  const stopPropagation = (e: React.MouseEvent<SVGElement>) => {
+    e.stopPropagation();
+    onClick();
+  };
+
   return (
     <GoHeartFill
-      onClick={onClick}
+      onClick={stopPropagation}
       className={`${styles.hearth} ${active ? styles.active : null}`}
       size={40}
     />

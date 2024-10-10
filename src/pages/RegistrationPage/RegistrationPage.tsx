@@ -17,8 +17,7 @@ interface RegistrateParams {
   password: string;
   secondPass: string;
 }
-
-export const RegistationPage = () => {
+const RegistationPage = () => {
   const [credentials, setCredentials] = useState<RegistrateParams>({
     login: '',
     password: '',
@@ -122,3 +121,5 @@ export const RegistationPage = () => {
     </div>
   );
 };
+
+export default RegistationPage;

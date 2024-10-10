@@ -4,7 +4,12 @@
   display: inline-block;
 }
 
+.dropdown h4 {
+  margin-bottom: 5px;
+}
+
 .dropdown_content {
+  background-color: var(--color-secondary-bg);
   visibility: hidden;
   opacity: 0;
   transition: opacity 0.4s ease;
@@ -14,6 +19,9 @@
   min-width: 160px;
   max-height: 200px;
   overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  // gap: 10px;
 }
 
 .title {
@@ -21,14 +29,16 @@
 }
 
 .dropdown_content p {
-  padding: 10px 6px;
-  background-color: var(--color-muted-text);
+  padding: 14px 6px;
   color: var(--color-active-text);
-  border-bottom: 2px solid transparent;
   width: auto;
   &:hover {
-    border-bottom: 2px solid var(--color-black-red);
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.8);
   }
+}
+
+.dropdown_content p:last-child {
+  margin-bottom: 6px;
 }
 
 .dropdown:hover .dropdown_content {

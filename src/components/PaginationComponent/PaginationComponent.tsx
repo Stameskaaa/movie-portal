@@ -24,6 +24,7 @@ export const PaginationComponent: React.FC<Props> = ({ totalPages }) => {
   const setNewPage = (number: string) => {
     const newParams = new URLSearchParams(searchParams);
     newParams.set('page', number);
+
     setSearchParams(newParams);
   };
 
@@ -36,13 +37,27 @@ export const PaginationComponent: React.FC<Props> = ({ totalPages }) => {
       {totalPages &&
         totalPages >= 5 &&
         arrNumber(5).map((value) => (
-          <PaginationButton key={value} onClick={setCurrentPage} text={`${value}`} />
+          <PaginationButton
+            key={value}
+            currentPage={currentPage}
+            onClick={setCurrentPage}
+            text={`${value}`}
+          />
         ))}{' '}
-      {totalPages > 6 && (
+      {totalPages >= 6 && (
         <>
           <span>. . .</span>
-          <PaginationInput totalPages={totalPages} setData={setCurrentPage} />
-          <PaginationButton key={totalPages} onClick={setCurrentPage} text={`${totalPages}`} />{' '}
+          <PaginationInput
+            currentPage={currentPage}
+            totalPages={totalPages}
+            setData={setCurrentPage}
+          />
+          <PaginationButton
+            key={totalPages}
+            currentPage={currentPage}
+            onClick={setCurrentPage}
+            text={`${totalPages}`}
+          />{' '}
         </>
       )}
     </div>

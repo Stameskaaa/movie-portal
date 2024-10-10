@@ -1,13 +1,13 @@
 import { useEffect, useState } from 'react';
 import styles from './PaginationInput.module.scss';
-import { useSearchParams } from 'react-router-dom';
 
 interface Props {
   totalPages: number;
   setData: (number: string) => void;
+  currentPage: string;
 }
 
-export const PaginationInput: React.FC<Props> = ({ totalPages, setData }) => {
+export const PaginationInput: React.FC<Props> = ({ totalPages, setData, currentPage }) => {
   const [value, setValue] = useState('');
 
   useEffect(() => {
@@ -31,5 +31,14 @@ export const PaginationInput: React.FC<Props> = ({ totalPages, setData }) => {
     }
   };
 
-  return <input value={value} placeholder="Num" onChange={hanleInput} className={styles.input} />;
+  return (
+    <input
+      value={value}
+      placeholder={currentPage}
+      onChange={hanleInput}
+      className={`${styles.input} ${
+        +currentPage > 5 && +currentPage !== totalPages ? styles.active : null
+      }`}
+    />
+  );
 };

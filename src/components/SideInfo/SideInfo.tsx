@@ -6,6 +6,7 @@ import { useGetMoreBaseInfoQuery, useGetPopularMovieQuery } from '../../services
 import { SpinnerLoader } from '../SpinnerLoader/SpinnerLoader';
 import { useNavigate } from 'react-router-dom';
 import { useAppSelector } from '../../hooks/typedReduxHooks/reduxHook';
+import { ErrorComponent } from '../ErrorComponent/ErrorComponent';
 
 export const SideInfo = () => {
   const [value, setValue] = useState('');
@@ -33,7 +34,7 @@ export const SideInfo = () => {
   }, [userData?.favorites]);
 
   if (popularErr && favoritesErr) {
-    <div>Error . . .</div>;
+    <ErrorComponent text="Some error" />;
   }
 
   return (

@@ -3,15 +3,19 @@
   aspect-ratio: 2 / 1;
   color: var(--color-muted-text);
   padding: 8px;
-
   border: none;
   cursor: pointer;
   font-size: 20px;
   background-color: var(--color-secondary-bg);
   box-sizing: border-box;
   border-radius: 4px;
-
   transition: background-color 0.15s, transform 0.1s;
-
   box-shadow: 0 0 35px 2px rgba(0, 0, 0, 0.7) !important;
+}
+
+.active {
+  &::placeholder {
+    color: var(--color-black-red);
+  }
+  color: var(--color-black-red) !important;
 }

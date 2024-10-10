@@ -13,7 +13,7 @@ interface LoginParams {
   password: string;
 }
 
-export const AuthPage = () => {
+const AuthPage = () => {
   const [credentials, setCredentials] = useState<LoginParams>({
     login: '',
     password: '',
@@ -86,3 +86,5 @@ export const AuthPage = () => {
     </div>
   );
 };
+
+export default AuthPage;

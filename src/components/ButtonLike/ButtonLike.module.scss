@@ -1,11 +1,15 @@
 .hearth {
   color: var(--color-muted-text);
   cursor: pointer;
-  transition: transform 0.1s ease, color 0.3 ease;
+  transition: transform 0.3s ease, color 0.3s ease;
+
   &:hover {
-    opacity: 0.9;
     transform: scale(1.05);
   }
+}
+
+.hearth {
+  filter: drop-shadow(0px 6px 12px rgba(0, 0, 0, 0.8));
 }
 
 .hearth:active {
