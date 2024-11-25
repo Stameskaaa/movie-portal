@@ -1,6 +1,6 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { FilmByID } from '../../types/apiTypes';
-const apikey = process.env.REACT_APP_API_KEY1;
+const apikey = process.env.REACT_APP_API_KEY3; // 1
 
 export const movieApi = createApi({
   reducerPath: 'movieApi',
@@ -69,9 +69,17 @@ export const movieApi = createApi({
         }
       },
     }),
+    getSimilarsById: builder.query({
+      query: ({ id }) => `/v2.2/films/${id}/similars`,
+    }),
+    getMovieImgById: builder.query({
+      query: ({ id, type }) => `/v2.2/films/${id}/images?type=${type}&page=1`,
+    }),
+    getRelatedMoviesById: builder.query({
+      query: ({ id }) => `/v2.1/films/${id}/sequels_and_prequels`,
+    }),
   }),
 });
-
 export const {
   useGetMoreBaseInfoQuery,
   useGetCollectionsQuery,
@@ -81,4 +89,7 @@ export const {
   useGetPersonsQuery,
   useGetPremiersQuery,
   useGetBaseInfoQuery,
+  useGetSimilarsByIdQuery,
+  useGetMovieImgByIdQuery,
+  useGetRelatedMoviesByIdQuery,
 } = movieApi;

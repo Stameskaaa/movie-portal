@@ -1,3 +1,11 @@
+.container {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  max-height: 90vh;
+}
+
 .loader {
   margin: 30% auto;
   color: var(--color-muted-text);

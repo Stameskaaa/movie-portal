@@ -36,7 +36,7 @@ export const MovieFullCard: React.FC<Props> = ({ data, id }) => {
         <TitledText title="Description" text={data?.description} />
         <TitledText title="Slogan" text={data?.slogan} />
         <TitledText title="Editor annotation" text={data?.editorAnnotation} />
-        <div style={{ marginLeft: 'auto', width: '100px' }}>
+        <div style={{ marginLeft: 'auto', marginBottom: '30px', width: '70px' }}>
           <ButtonLike onClick={addInFavorite} active={inFavorite} />
         </div>
       </div>

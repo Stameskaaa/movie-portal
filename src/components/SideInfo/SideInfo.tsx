@@ -1,5 +1,4 @@
-import { useState, useEffect } from 'react';
-import { Input } from '../Input/Input';
+import { useEffect } from 'react';
 import { SideFetchedMovies } from '../SideFetchedMovies/SideFetchedMovies';
 import styles from './SideInfo.module.scss';
 import { useGetMoreBaseInfoQuery, useGetPopularMovieQuery } from '../../services/movieApi/movieApi';
@@ -9,7 +8,6 @@ import { useAppSelector } from '../../hooks/typedReduxHooks/reduxHook';
 import { ErrorComponent } from '../ErrorComponent/ErrorComponent';
 
 export const SideInfo = () => {
-  const [value, setValue] = useState('');
   const {
     data: popular,
     error: popularErr,
@@ -39,7 +37,6 @@ export const SideInfo = () => {
 
   return (
     <section className={styles.sideinfo_container}>
-      <Input value={value} setValue={setValue} />
       {popularLoading && favoritesLoading ? (
         <SpinnerLoader />
       ) : (

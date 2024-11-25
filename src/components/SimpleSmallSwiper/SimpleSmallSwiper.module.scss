@@ -1,0 +1,38 @@
+.embla {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.embla h3 {
+  margin: 20px 0;
+  font-size: 24px;
+}
+
+.embla_viewport {
+  overflow: hidden;
+  width: 100%;
+}
+
+.embla_container {
+  display: flex;
+  flex-direction: row;
+}
+
+.similars_container {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+}
+
+.card_title {
+  color: var(--color-active-text);
+  max-width: 230px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  height: 36px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}

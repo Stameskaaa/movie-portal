@@ -14,6 +14,7 @@ body {
   --bright-blue: #3b5998;
 
   color: var(--color-muted-text);
+  /* overflow: hidden; */
 }
 
 * {

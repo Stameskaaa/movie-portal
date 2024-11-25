@@ -50,8 +50,8 @@ export const MenuBlock: React.FC<Props> = ({ title, listItems }) => {
               className={isActive(item.url) ? styles.active : styles.navlink}
               to={item.url.full}>
               <li>
-                <span className={styles.icon}>{item.icon}</span>
-                {item.text}
+                <span className={styles.item_icon}>{item.icon}</span>
+                <span className={styles.item_text}>{item.text}</span>
               </li>
             </NavLink>
           );

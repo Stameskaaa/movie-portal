@@ -16,8 +16,7 @@ type PropType = {
 
 const WithPopUp = withPopUp(SmallSliderCard);
 
-export const EmblaCarousel: React.FC<PropType> = (props) => {
-  const { slides, options, multipleSlides } = props;
+export const EmblaCarousel: React.FC<PropType> = ({ slides, options, multipleSlides }) => {
   const [emblaRef, emblaApi] = useEmblaCarousel(options, [
     Autoplay({ delay: multipleSlides ? 25000 : 3000 }),
   ]);
@@ -37,7 +36,7 @@ export const EmblaCarousel: React.FC<PropType> = (props) => {
                   img={movie.posterUrl}
                 />
               ) : (
-                <MainCard id={movie.kinopoiskId} img={movie.posterUrl} title={movie.nameRu} />
+                <MainCard id={movie?.kinopoiskId} img={movie.posterUrl} title={movie.nameRu} />
               )}
             </div>
           ))}

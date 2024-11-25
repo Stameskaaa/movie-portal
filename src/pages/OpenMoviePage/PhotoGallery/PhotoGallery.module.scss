@@ -1,0 +1,144 @@
+.wrapper {
+  box-shadow: 0px 8px 30px rgba(0, 0, 0, 0.9);
+  padding: 15px;
+  margin: 15px;
+  background-color: var(--color-section);
+  border-radius: 15px;
+}
+.container h4 {
+  font-size: 24px;
+}
+
+.photo_gallery {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  width: 100%;
+  padding: 16px;
+  box-sizing: border-box;
+
+  .photo_item {
+    flex: 1 1 calc(33.33% - 16px);
+    max-width: calc(33.33% - 16px);
+    overflow: hidden;
+    border-radius: 8px;
+    img {
+      cursor: pointer;
+      width: 100%;
+      height: 300px;
+      object-fit: cover;
+
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s;
+    }
+
+    img:hover {
+      transform: scale(1.1);
+    }
+  }
+
+  @media (max-width: 768px) {
+    .photo_item {
+      flex: 1 1 calc(50% - 8px);
+      max-width: calc(50% - 8px);
+    }
+  }
+
+  @media (max-width: 480px) {
+    .photo_item {
+      flex: 1 1 100%;
+      max-width: 100%;
+    }
+  }
+}
+
+.modal_container {
+  position: fixed;
+  width: 100dvw;
+  height: 100dvh;
+  z-index: 1000;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(7px);
+  inset: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal_content {
+  text-align: center;
+  max-width: 90%;
+  width: 90%;
+  max-height: 90%;
+  height: auto;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  user-select: none;
+  position: relative;
+  &:hover {
+    .switch_buttons {
+      opacity: 1;
+    }
+  }
+}
+
+.modal_content img {
+  max-width: 100%;
+  height: 80vh;
+  max-height: 100%;
+  object-fit: contain;
+  z-index: -1;
+}
+
+.switch_buttons {
+  cursor: pointer;
+  position: absolute;
+
+  color: var(--color-active-text);
+  opacity: 0;
+  transition: opacity 0.3s;
+  &:hover {
+    color: var(--color-black-red);
+  }
+  height: 100%;
+  width: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal_content .switch_buttons:first-child {
+  left: 0;
+}
+
+.modal_content .switch_buttons:last-child {
+  right: 0;
+}
+
+.disabled {
+  pointer-events: none;
+  opacity: 0.3 !important;
+  color: var(--color-muted-text);
+}
+
+.close {
+  position: absolute;
+  left: calc(100% - 50px);
+  top: 10px;
+  cursor: pointer;
+  transition: color 0.3s;
+  color: var(--color-header-text);
+  &:hover {
+    color: var(--color-active-text);
+  }
+}
+
+.page_info {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  font-size: 20px;
+  margin: 15px;
+}

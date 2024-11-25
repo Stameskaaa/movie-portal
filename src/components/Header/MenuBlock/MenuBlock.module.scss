@@ -15,6 +15,9 @@
     flex-direction: row;
     align-items: center;
     gap: 15px;
+    @media (max-width: 1000px) {
+      justify-content: center;
+    }
 
     &:hover {
       color: var(--color-active-text);
@@ -22,7 +25,7 @@
   }
 }
 
-.icon {
+.item_icon {
   font-size: 1.5rem;
   display: inline-flex;
   align-items: center;
@@ -30,7 +33,13 @@
 
 .active {
   color: var(--color-active-text);
-  .icon {
+  .item_icon {
     color: var(--color-black-red);
+  }
+}
+
+.item_text {
+  @media (max-width: 1000px) {
+    display: none;
   }
 }

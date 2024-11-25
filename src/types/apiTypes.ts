@@ -107,6 +107,30 @@ export interface MovieResponse {
   items: FilmData[];
 }
 
+export interface RelatedFilm {
+  filmId: number;
+  nameEn: string;
+  nameOriginal: string;
+  nameRu: string;
+  posterUrl: string;
+  posterUrlPreview: string;
+  relationType: string;
+}
+
+export interface ImageUrls {
+  imageUrl: string;
+  previewUrl: string;
+}
+export interface SimilarFilm {
+  filmId: number;
+  nameEn: string | null;
+  nameOriginal: string | null;
+  nameRu: string | null;
+  posterUrl: string;
+  posterUrlPreview: string;
+  relationType: 'SIMILAR' | string;
+}
+
 export interface SearchString {
   order?: string;
   type?: string;
